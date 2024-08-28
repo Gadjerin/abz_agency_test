@@ -35,11 +35,18 @@ val Typography = Typography(
         fontSize = 14.sp,
         lineHeight = 20.sp,
     ),
-    // Used for Text inside Button
+    // Used for Text inside PrimaryButton
     labelLarge = TextStyle(
         fontFamily = NunitoSansFontFamily,
         fontWeight = FontWeight.SemiBold,
         fontSize = 18.sp,
         lineHeight = 24.sp,
     ),
+    // Used for Text inside SecondaryButton
+    labelMedium = TextStyle(
+        fontFamily = NunitoSansFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+    )
 )
