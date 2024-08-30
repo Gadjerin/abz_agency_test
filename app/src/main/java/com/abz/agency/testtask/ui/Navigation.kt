@@ -13,6 +13,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.abz.agency.testtask.R
+import com.abz.agency.testtask.ui.screen.nointernet.NoInternetScreen
 
 /**
  * Holds composables of every `Destination`.
@@ -75,12 +76,13 @@ fun AppNavHost(
             }
         }
         composable(Destination.NoInternet.route) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("NoInternet screen")
-            }
+            NoInternetScreen(
+                navigateToUsers = {
+                    navController.navigate(Destination.Users.route) {
+                        launchSingleTop = true
+                    }
+                }
+            )
         }
     }
 }
