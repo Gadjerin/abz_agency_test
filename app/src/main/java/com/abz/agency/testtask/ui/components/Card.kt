@@ -98,7 +98,7 @@ fun DeveloperCard(
 
 @Preview(showBackground = true)
 @Composable
-fun DeveloperCardPreview() {
+private fun DeveloperCardPreview() {
     TesttaskTheme {
         Column(
             modifier = Modifier.padding(8.dp),

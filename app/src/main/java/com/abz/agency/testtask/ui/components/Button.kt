@@ -118,7 +118,7 @@ fun SecondaryButton(
 
 @Preview(showBackground = true)
 @Composable
-fun PrimaryButtonPreview() {
+private fun PrimaryButtonPreview() {
     TesttaskTheme {
         Column(
             modifier = Modifier.padding(8.dp),
@@ -132,7 +132,7 @@ fun PrimaryButtonPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun SecondaryButtonPreview() {
+private fun SecondaryButtonPreview() {
     TesttaskTheme {
         Column(
             modifier = Modifier.padding(8.dp),

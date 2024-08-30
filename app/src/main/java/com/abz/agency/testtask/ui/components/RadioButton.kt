@@ -60,7 +60,7 @@ fun <T> PrimaryRadioButtonLabeled(
 
 @Preview(showBackground = true)
 @Composable
-fun PrimaryRadioButtonPreview() {
+private fun PrimaryRadioButtonPreview() {
     TesttaskTheme {
         Column(
             modifier = Modifier.padding(8.dp),
@@ -75,7 +75,7 @@ fun PrimaryRadioButtonPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun PrimaryRadioButtonLabeledPreview() {
+private fun PrimaryRadioButtonLabeledPreview() {
     TesttaskTheme {
         Column(
             modifier = Modifier.padding(8.dp),

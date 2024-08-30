@@ -97,7 +97,7 @@ fun PrimaryTextField(
 
 @Preview(showBackground = true)
 @Composable
-fun PrimaryTextFieldPreview() {
+private fun PrimaryTextFieldPreview() {
     TesttaskTheme {
         Column(
             modifier = Modifier.padding(8.dp),
