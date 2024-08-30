@@ -13,7 +13,9 @@ import com.abz.agency.testtask.ui.Destination
 import com.abz.agency.testtask.ui.components.BottomNavBar
 import com.abz.agency.testtask.ui.components.PrimaryTopAppBar
 import com.abz.agency.testtask.ui.theme.TesttaskTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     companion object {
         const val TAG = "MainActivity"
