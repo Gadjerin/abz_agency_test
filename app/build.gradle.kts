@@ -65,6 +65,9 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.44")
     // Splash screen
     implementation("androidx.core:core-splashscreen:1.0.1")
+    // Api requests lib and its converter
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
