@@ -58,6 +58,7 @@ kapt {
 dependencies {
     // Lib for dynamic image loading by url
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+    kapt("com.github.bumptech.glide:compiler:4.9.0")
     // Compose navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
     // Dependency injection lib
