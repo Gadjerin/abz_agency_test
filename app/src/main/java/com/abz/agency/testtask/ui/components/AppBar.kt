@@ -81,7 +81,10 @@ fun BottomNavBar(
                                     painterResource(id = bottomNavEntry.iconResource),
                                     "Navigation icon",
                                 )
-                                Text(bottomNavEntry.title)
+                                Text(
+                                    bottomNavEntry.title,
+                                    style = MaterialTheme.typography.labelLarge
+                                )
                             }
                         }
                     },
