@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -39,22 +40,15 @@ fun DeveloperCard(
     imageUrl: String? = null
 ) {
     ListItem(
-        modifier = Modifier
-            .height(IntrinsicSize.Min),
         leadingContent = {
-            Box(
-                contentAlignment = Alignment.TopStart,
-                modifier = Modifier.fillMaxHeight()
-            ) {
-                GlideImage(
-                    model = imageUrl,
-                    contentDescription = "Developer photo",
-                    loading = placeholder(R.drawable.photo_placeholder),
-                    modifier = Modifier
-                        .size(50.dp)
-                        .clip(CircleShape)
-                )
-            }
+            GlideImage(
+                model = imageUrl,
+                contentDescription = "Developer photo",
+                loading = placeholder(R.drawable.photo_placeholder),
+                modifier = Modifier
+                    .size(50.dp)
+                    .clip(CircleShape)
+            )
         },
         headlineContent = {
             Text(
@@ -90,7 +84,7 @@ fun DeveloperCard(
                 )
                 // Space between the last Text and Divider is 24.dp according to the design
                 Spacer(modifier = Modifier.padding(vertical = 12.dp))
-                Divider()
+                HorizontalDivider()
             }
         },
     )
@@ -143,7 +137,7 @@ private fun DeveloperCardPreview() {
                 "Backend developer",
                 "maximus_wilderman_ronaldo_schuppe@gmail.com",
                 "+380982787624"
-                )
+            )
         }
     }
 }
