@@ -61,8 +61,8 @@ dependencies {
     // Compose navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
     // Dependency injection lib
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.52")
+    kapt("com.google.dagger:hilt-android-compiler:2.52")
     // Splash screen
     implementation("androidx.core:core-splashscreen:1.0.1")
     // Api requests lib and its converter
