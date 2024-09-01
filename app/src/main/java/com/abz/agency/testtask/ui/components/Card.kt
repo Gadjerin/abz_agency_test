@@ -1,5 +1,6 @@
 package com.abz.agency.testtask.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -94,6 +95,10 @@ fun DeveloperCard(
  * Turns +380982787624 to +38 (098) 278 76 24
  */
 private fun formatPhoneNumber(phoneNumber: String): String {
+    // Ignore numbers of wrong size
+    if (phoneNumber.length != 13)
+        return phoneNumber
+
     return "%s (%s) %s %s %s".format(
         // +38
         phoneNumber.slice(
