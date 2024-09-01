@@ -84,7 +84,7 @@ fun DeveloperCard(
                 // Vertical padding is 2*2
                 Spacer(modifier = Modifier.padding(vertical = 2.dp))
                 Text(
-                    phoneNumber,
+                    formatPhoneNumber(phoneNumber),
                     style = MaterialTheme.typography.bodySmall,
                     color = TransparentBlackEnabled
                 )
@@ -93,6 +93,34 @@ fun DeveloperCard(
                 Divider()
             }
         },
+    )
+}
+
+/**
+ * Turns +380982787624 to +38 (098) 278 76 24
+ */
+private fun formatPhoneNumber(phoneNumber: String): String {
+    return "%s (%s) %s %s %s".format(
+        // +38
+        phoneNumber.slice(
+            0..2
+        ),
+        // 098
+        phoneNumber.slice(
+            3..5
+        ),
+        // 278
+        phoneNumber.slice(
+            6..8
+        ),
+        // 76
+        phoneNumber.slice(
+            9..10
+        ),
+        // 24
+        phoneNumber.slice(
+            11..12
+        ),
     )
 }
 
@@ -108,14 +136,14 @@ private fun DeveloperCardPreview() {
                 "Malcolm Bailey",
                 "Frontend developer",
                 "jany_murazik51@hotmail.com",
-                "+38 (098) 278 76 24"
+                "+380982787624"
             )
             DeveloperCard(
                 "Seraphina Anastasia Isolde Aurelia Celestina von Hohenzollern",
                 "Backend developer",
                 "maximus_wilderman_ronaldo_schuppe@gmail.com",
-                "+38 (098) 278 76 24"
-            )
+                "+380982787624"
+                )
         }
     }
 }
