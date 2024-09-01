@@ -1,5 +1,6 @@
 package com.abz.agency.testtask.model.api
 
+import com.abz.agency.testtask.model.data.UsersRemoteDataSource
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.HttpException
@@ -37,7 +38,7 @@ interface AbzAgencyUsersApi {
     ): Response<PostUsersResponse>
 }
 
-class UsersApi @Inject constructor(private val api: AbzAgencyUsersApi) {
+class UsersApi @Inject constructor(private val api: AbzAgencyUsersApi) : UsersRemoteDataSource {
     companion object {
         const val BASE_URL = "https://frontend-test-assignment-api.abz.agency/api/v1/"
     }
@@ -47,10 +48,18 @@ class UsersApi @Inject constructor(private val api: AbzAgencyUsersApi) {
         : Exception(message)
     class PositionsRequestException(message: String) : Exception(message)
 
-    var totalUsers = -1
-        private set
+    private var totalUsers = -1
 
-    suspend fun getUsers(page: Int, count: Int? = null): List<UserGet> {
+    override suspend fun getUsersCount(): Int {
+        if (totalUsers == -1) {
+            // Unfortunately the only way to get total users if not initialized by other getUsers request yet
+            getUsers(1, 1)
+        }
+
+        return totalUsers
+    }
+
+    override suspend fun getUsers(page: Int, count: Int?): List<UserGet> {
         val response = api.getUsers(page, count)
         val successResponse = response.body()
         val errorResponse = response.errorBody()?.string()
@@ -83,7 +92,7 @@ class UsersApi @Inject constructor(private val api: AbzAgencyUsersApi) {
         }
     }
 
-    suspend fun getPositions(): List<Position> {
+    override suspend fun getPositions(): List<Position> {
         val response = api.getPositions()
         val successResponse = response.body()
         val errorResponse = response.errorBody()?.string()
@@ -122,7 +131,7 @@ class UsersApi @Inject constructor(private val api: AbzAgencyUsersApi) {
         }
     }
 
-    suspend fun insertUser(user: UserPost): Int {
+    override suspend fun insertUser(user: UserPost): Int {
         val imageRequestBody = RequestBody
             .create(MediaType.parse("application/octet-stream"), user.photo)
 
