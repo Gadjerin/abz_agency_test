@@ -23,7 +23,7 @@ class InternetConnectionViewModel(private val application: Application) : Androi
             viewModelScope.asyncSendEvent(Event.NavigateToUsers)
         }
         else {
-            viewModelScope.asyncSendEvent(Event.ShowToast("Network still unavailable"))
+            viewModelScope.asyncSendEvent(Event.ShowToast("Network is still unavailable"))
         }
     }
 
