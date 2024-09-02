@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
@@ -56,7 +57,7 @@ class UiStateDelegateImpl<UiState, Event>(
     override val singleEvents: Flow<Event> = singleEventsChannel.receiveAsFlow()
 
     override fun reduce(action: (state: UiState) -> UiState) {
-        stateFlow.value = action.invoke(stateValue)
+        stateFlow.update(action)
     }
 
     override suspend fun sendEvent(event: Event) {
