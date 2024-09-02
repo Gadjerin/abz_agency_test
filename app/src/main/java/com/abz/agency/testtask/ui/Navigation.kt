@@ -9,11 +9,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.abz.agency.testtask.R
 import com.abz.agency.testtask.ui.screen.nointernet.NoInternetScreen
+import com.abz.agency.testtask.ui.screen.users.UsersScreen
+import com.abz.agency.testtask.ui.screen.users.UsersViewModel
 
 /**
  * Holds composables of every `Destination`.
@@ -26,6 +29,8 @@ fun AppNavHost(
     navController: NavHostController,
     startDestination: Destination
 ) {
+    // To have same through screen transitions
+    val usersViewModel: UsersViewModel = hiltViewModel()
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -46,12 +51,14 @@ fun AppNavHost(
                 )
             }
         ) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("Users screen")
-            }
+            UsersScreen(
+                usersViewModel,
+                navigateToNoInternet = {
+                    navController.navigate(Destination.NoInternet.route) {
+                        launchSingleTop = true
+                    }
+                }
+            )
         }
         composable(
             Destination.SignUp.route,
