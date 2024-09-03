@@ -58,10 +58,6 @@ class UsersViewModel @Inject constructor(
         firstVisibleItemScrollOffset = state.firstVisibleItemScrollOffset
     }
 
-    init {
-        loadMoreUsers()
-    }
-
     fun loadMoreUsers() {
         if (!isLoading) {
             isLoading = true

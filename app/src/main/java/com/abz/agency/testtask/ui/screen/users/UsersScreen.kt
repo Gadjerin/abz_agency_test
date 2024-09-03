@@ -32,13 +32,25 @@ import com.abz.agency.testtask.R
 import com.abz.agency.testtask.ui.components.DeveloperCard
 import kotlinx.coroutines.launch
 import com.abz.agency.testtask.ui.screen.users.UsersViewModel.Event
+import kotlinx.coroutines.delay
 
 @Composable
 fun UsersScreen(
     viewModel: UsersViewModel = hiltViewModel(),
     navigateToNoInternet: () -> Unit
 ) {
+    val uiState = viewModel.uiState.collectAsState().value
+
     LaunchedEffect(key1 = Unit) {
+        launch {
+            while (uiState.users.isEmpty()) {
+                // If there are no users then we should busy wait for them,
+                // to avoid stucking in the same state,
+                // after first users were loaded this coroutine no more needed
+                viewModel.loadMoreUsers()
+                delay(3000)
+            }
+        }
         launch {
             viewModel.singleEvents.collect { event ->
                 when(event) {
@@ -47,8 +59,6 @@ fun UsersScreen(
             }
         }
     }
-
-    val uiState = viewModel.uiState.collectAsState().value
 
     when {
         uiState.users.isEmpty() && uiState.isLoading -> {
