@@ -6,11 +6,12 @@ import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -36,6 +37,9 @@ fun PrimaryTextField(
     trailingIcon:  @Composable (()->Unit)? = null,
     enabled: Boolean = true,
     isError: Boolean = false,
+    maxLength: Int = 255,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
     val interactionSource = remember{ MutableInteractionSource() }
     val isFocused = interactionSource.collectIsFocusedAsState().value
@@ -53,7 +57,9 @@ fun PrimaryTextField(
         value = textState.value,
         {
             newText ->
-            textState.value = newText
+            if (newText.length <= maxLength) {
+                textState.value = newText
+            }
         },
         interactionSource = interactionSource,
         decorationBox = { innerBox ->
@@ -69,7 +75,10 @@ fun PrimaryTextField(
                     Text(labelText)
                 },
                 supportingText = {
-                    Text(supportingText)
+                    Text(
+                        supportingText,
+                        style = MaterialTheme.typography.bodySmall
+                    )
                 },
                 trailingIcon = trailingIcon,
                 colors = TextFieldDefaults.colors(
@@ -91,6 +100,8 @@ fun PrimaryTextField(
         },
         singleLine = true,
         enabled = enabled,
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
         modifier = Modifier
             .fillMaxWidth(),
     )
