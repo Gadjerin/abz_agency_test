@@ -29,10 +29,10 @@ class UsersViewModel @Inject constructor(
         data object NavigateToNoInternet : Event
     }
 
+    // MutableList to accumulate users from every request
     private val _users = mutableListOf<UserGet>()
 
     data class UiState(
-        // MutableList to accumulate users from every request
         val users: List<UserGet> = listOf(),
         val isLoading: Boolean = false,
         val hasMoreUsers: Boolean = true
