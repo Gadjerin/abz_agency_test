@@ -1,8 +1,6 @@
 package com.abz.agency.testtask.ui
 
 import androidx.annotation.DrawableRes
-import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,19 +32,7 @@ fun AppNavHost(
         startDestination = startDestination.route
     ) {
         composable(
-            Destination.Users.route,
-            exitTransition = {
-                slideOutOfContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Left,
-                    tween(700)
-                )
-            },
-            enterTransition = {
-                slideIntoContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Right,
-                    animationSpec = tween(700)
-                )
-            }
+            Destination.Users.route
         ) {
             UsersScreen(
                 navigateToNoInternet = {
@@ -57,19 +43,7 @@ fun AppNavHost(
             )
         }
         composable(
-            Destination.SignUp.route,
-            exitTransition = {
-                slideOutOfContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Right,
-                    tween(700)
-                )
-            },
-            enterTransition = {
-                slideIntoContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Left,
-                    animationSpec = tween(700)
-                )
-            }
+            Destination.SignUp.route
         ) {
             SignUpScreen(
                 viewModel = signUpViewModel,
