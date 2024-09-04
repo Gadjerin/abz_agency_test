@@ -3,11 +3,7 @@ package com.abz.agency.testtask.ui
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -15,6 +11,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.abz.agency.testtask.R
 import com.abz.agency.testtask.ui.screen.nointernet.NoInternetScreen
+import com.abz.agency.testtask.ui.screen.signup.SignUpScreen
+import com.abz.agency.testtask.ui.screen.signup.SignUpViewModel
 import com.abz.agency.testtask.ui.screen.users.UsersScreen
 import com.abz.agency.testtask.ui.screen.users.UsersViewModel
 
@@ -31,6 +29,7 @@ fun AppNavHost(
 ) {
     // To have same through screen transitions
     val usersViewModel: UsersViewModel = hiltViewModel()
+    val signUpViewModel: SignUpViewModel = hiltViewModel()
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -75,12 +74,19 @@ fun AppNavHost(
                 )
             }
         ) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("SignUp screen")
-            }
+            SignUpScreen(
+                viewModel = signUpViewModel,
+                navigateToNoInternet = {
+                    navController.navigate(Destination.NoInternet.route) {
+                        launchSingleTop = true
+                    }
+                },
+                navigateToUsers = {
+                    navController.navigate(Destination.Users.route) {
+                        launchSingleTop = true
+                    }
+                }
+            )
         }
         composable(Destination.NoInternet.route) {
             NoInternetScreen(
