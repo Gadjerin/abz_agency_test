@@ -2,6 +2,7 @@ package com.abz.agency.testtask.model.api
 
 import com.abz.agency.testtask.model.data.UsersRemoteDataSource
 import okhttp3.MediaType
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.HttpException
 import retrofit2.Response
@@ -30,11 +31,11 @@ interface AbzAgencyUsersApi {
     @Multipart
     suspend fun postUser(
         @Header("Token") token: String,
-        @Part("name") name: String,
-        @Part("email") email: String,
-        @Part("phone") phone: String,
-        @Part("position_id") positionId: Int,
-        @Part("photo") photo: RequestBody
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part("position_id") positionId: RequestBody,
+        @Part photo: MultipartBody.Part
     ): Response<PostUsersResponse>
 }
 
@@ -132,16 +133,20 @@ class UsersApi @Inject constructor(private val api: AbzAgencyUsersApi) : UsersRe
     }
 
     override suspend fun insertUser(user: UserPost): Int {
-        val imageRequestBody = RequestBody
-            .create(MediaType.parse("application/octet-stream"), user.photo)
+        val photoRequestBody = RequestBody.create(
+            MediaType.parse(
+                "image/jpeg"
+            ),
+            user.photo
+        )
 
         val response = api.postUser(
             getToken(),
-            user.name,
-            user.email,
-            user.phone,
-            user.positionId,
-            imageRequestBody
+            RequestBody.create(MultipartBody.FORM, user.name),
+            RequestBody.create(MultipartBody.FORM, user.email),
+            RequestBody.create(MultipartBody.FORM, user.phone),
+            RequestBody.create(MultipartBody.FORM, user.positionId.toString()),
+            MultipartBody.Part.createFormData("photo", "photo", photoRequestBody)
         )
         val successResponse = response.body()
         val errorResponse = response.errorBody()?.string()
