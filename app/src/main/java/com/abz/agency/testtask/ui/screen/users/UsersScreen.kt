@@ -80,7 +80,7 @@ fun UsersScreen(
                 items(
                     items = uiState.users,
                     key = {
-                        it.email
+                        it.id
                     }
                 ) {
                     DeveloperCard(

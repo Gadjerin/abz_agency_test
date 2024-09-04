@@ -43,6 +43,25 @@ class UsersViewModel @Inject constructor(
     private var shouldUpdateTotalUsers = true
     private var totalUsers = -1
 
+    /*
+        This method is needed because if user is scrolling users list while another user POSTs new user
+        then users count became larger and we could accidentally load and add already existing user because
+        next page then will contain one user from previous page.
+
+        Example (count = 3):
+            Step 1 -
+                Load page 1: {user1, user2, user3} // We loaded them and next load is gonna be from page 2
+            Step 2 -
+                Someone added userN, so now on the server are {userN, user1, user2, user3}
+            Step 3 -
+                Load page 2: {user3, user4, user5} // But we already had loaded user3
+     */
+    private fun MutableList<UserGet>.addUnique(newUser: UserGet) {
+        if (none { it.id == newUser.id }) {
+            this.add(newUser)
+        }
+    }
+
     fun loadMoreUsers() {
         if (!isLoading) {
             isLoading = true
@@ -90,7 +109,9 @@ class UsersViewModel @Inject constructor(
                         val users = usersRepository.getUsers(currentUsersPage)
                         totalUsers = usersRepository.getUsersCount() // For future requests
                         currentUsersPage++ // Move to next page only if request succeed
-                        _users.addAll(users)
+                        users.forEach {
+                            _users.addUnique(it)
+                        }
                         reduce { uiState ->
                             uiState.copy(
                                 users = _users,

@@ -12,6 +12,7 @@ import java.lang.reflect.Type
  * Represents User data which you get by `GET /users`
  */
 data class UserGet(
+    val id: Int,
     val name: String,
     val email: String,
     val phone: String,
