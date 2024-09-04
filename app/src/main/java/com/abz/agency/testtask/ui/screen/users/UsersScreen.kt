@@ -41,7 +41,7 @@ fun UsersScreen(
 ) {
     val uiState = viewModel.uiState.collectAsState().value
 
-    LaunchedEffect(key1 = Unit) {
+    LaunchedEffect(key1 = uiState.users) {
         launch {
             while (uiState.users.isEmpty()) {
                 // If there are no users then we should busy wait for them,
@@ -51,6 +51,9 @@ fun UsersScreen(
                 delay(3000)
             }
         }
+    }
+
+    LaunchedEffect(key1 = Unit) {
         launch {
             viewModel.singleEvents.collect { event ->
                 when(event) {
