@@ -1,7 +1,6 @@
 package com.abz.agency.testtask.ui.screen.users
 
 import android.util.Log
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.abz.agency.testtask.model.api.UserGet
@@ -43,20 +42,6 @@ class UsersViewModel @Inject constructor(
 
     private var shouldUpdateTotalUsers = true
     private var totalUsers = -1
-
-
-    var firstVisibleItemIndex = 0
-        private set
-    var firstVisibleItemScrollOffset = 0
-        private set
-
-    /**
-     * Needed to save scroll position even through navigation.
-     */
-    fun saveUsersListScrollPosition(state: LazyListState) {
-        firstVisibleItemIndex = state.firstVisibleItemIndex
-        firstVisibleItemScrollOffset = state.firstVisibleItemScrollOffset
-    }
 
     fun loadMoreUsers() {
         if (!isLoading) {

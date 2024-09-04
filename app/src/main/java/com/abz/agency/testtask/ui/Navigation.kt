@@ -14,7 +14,6 @@ import com.abz.agency.testtask.ui.screen.nointernet.NoInternetScreen
 import com.abz.agency.testtask.ui.screen.signup.SignUpScreen
 import com.abz.agency.testtask.ui.screen.signup.SignUpViewModel
 import com.abz.agency.testtask.ui.screen.users.UsersScreen
-import com.abz.agency.testtask.ui.screen.users.UsersViewModel
 
 /**
  * Holds composables of every `Destination`.
@@ -28,7 +27,6 @@ fun AppNavHost(
     startDestination: Destination
 ) {
     // To have same through screen transitions
-    val usersViewModel: UsersViewModel = hiltViewModel()
     val signUpViewModel: SignUpViewModel = hiltViewModel()
     NavHost(
         modifier = modifier,
@@ -51,7 +49,6 @@ fun AppNavHost(
             }
         ) {
             UsersScreen(
-                usersViewModel,
                 navigateToNoInternet = {
                     navController.navigate(Destination.NoInternet.route) {
                         launchSingleTop = true

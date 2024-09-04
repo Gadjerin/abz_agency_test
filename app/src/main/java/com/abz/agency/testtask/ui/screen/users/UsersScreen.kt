@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -22,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -75,21 +73,7 @@ fun UsersScreen(
             }
         }
         uiState.users.isNotEmpty() -> {
-            val listState = rememberLazyListState(
-                viewModel.firstVisibleItemIndex,
-                viewModel.firstVisibleItemScrollOffset
-            )
-            // Save scroll state for better UX
-            LaunchedEffect(listState) {
-                snapshotFlow {
-                    listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
-                }.collect { (_, _) ->
-                    viewModel.saveUsersListScrollPosition(listState)
-                }
-            }
-            LazyColumn(
-                state = listState
-            ) {
+            LazyColumn {
                 item {
                     Spacer(modifier = Modifier.padding(vertical = 6.dp))
                 }
