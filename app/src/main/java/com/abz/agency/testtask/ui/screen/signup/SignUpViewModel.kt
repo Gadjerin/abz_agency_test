@@ -235,11 +235,13 @@ class SignUpViewModel @Inject constructor(
                     reduce {
                         it.copy(isLoading = false)
                     }
+                } catch (e: UnknownHostException) {
+                    sendEvent(Event.NavigateToNoInternet)
+                    reduce {
+                        it.copy(isLoading = false)
+                    }
                 }
             }
-        }
-        else {
-            return
         }
     }
 
