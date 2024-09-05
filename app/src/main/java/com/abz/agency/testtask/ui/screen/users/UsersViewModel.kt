@@ -22,6 +22,8 @@ class UsersViewModel @Inject constructor(
 ) : ViewModel(), UiStateDelegate<UiState, Event> by UiStateDelegateImpl(UiState()) {
     companion object {
         const val TAG = "UsersViewModel"
+
+        const val LOAD_USERS_COUNT = 6
     }
 
     sealed interface Event {
@@ -106,7 +108,7 @@ class UsersViewModel @Inject constructor(
 
                     // Check haven't we already loaded all users
                     if (totalUsers > _users.size) {
-                        val users = usersRepository.getUsers(currentUsersPage)
+                        val users = usersRepository.getUsers(currentUsersPage, LOAD_USERS_COUNT)
                         totalUsers = usersRepository.getUsersCount() // For future requests
                         currentUsersPage++ // Move to next page only if request succeed
                         users.forEach {
